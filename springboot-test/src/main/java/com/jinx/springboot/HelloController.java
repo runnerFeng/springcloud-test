@@ -1,7 +1,12 @@
 package com.jinx.springboot;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author jinx
@@ -9,11 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
  * Desc:
  */
 @RestController
+@Slf4j
 public class HelloController {
 
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     @RequestMapping("hello")
     public String index() {
+        ServiceInstance instance = (ServiceInstance) discoveryClient.getInstances("HELLO-SERVICE").get(0);
+        log.info("/hello,host:"+instance.getHost()+",service_id:"+instance.getServiceId());
         return "Hello World";
     }
 
