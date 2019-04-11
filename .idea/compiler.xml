@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-server" />
         <module name="eureka-server2" />
+        <module name="ribbon-consumer" />
         <module name="springboot-test" />
       </profile>
     </annotationProcessing>
